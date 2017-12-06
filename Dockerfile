@@ -6,7 +6,7 @@ ENV VERSION=6.1.0
 
 RUN set -x \  
     && apt-get update \
-	#&& buildDeps='curl gcc g++ make libffi-dev' \
+	&& buildDeps='curl gcc g++ make libffi-dev' \
 	&& apt-get install -y --no-install-recommends $buildDeps \
     && curl -fSL https://github.com/openstack/ironic-inspector/archive/${VERSION}.tar.gz -o ironic-inspector-${VERSION}.tar.gz \
     && tar xf ironic-inspector-${VERSION}.tar.gz \
