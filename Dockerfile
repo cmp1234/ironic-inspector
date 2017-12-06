@@ -13,7 +13,8 @@ RUN set -x \
     && cd ironic-inspector-${VERSION} \
     && pip install -r requirements.txt \
     && PBR_VERSION=${VERSION}  pip install . \
-    && cp -r etc / \
+    && mkdir /etc/ironic-inspector
+    && cp example.conf /etc/ironic-inspector \
     && pip install PyMySQL \
     && cd - \
     && rm -rf ironic-inspector-${VERSION}* \
