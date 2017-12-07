@@ -1,13 +1,14 @@
-FROM python:2.7-slim-jessie
+FROM centos:7
 
 MAINTAINER Wang Lilong "wanglilong007@gmail.com"
 
 ENV VERSION=6.1.0
 
 RUN set -x \  
-    && apt-get update \
+	&& yum install -y epel-release  \
+	&& yum install -y python-pip ipmitool\
 	&& buildDeps='curl gcc g++ make libffi-dev' \
-	&& apt-get install -y --no-install-recommends $buildDeps \
+	&& yum install -y $buildDeps \
     && curl -fSL https://github.com/openstack/ironic-inspector/archive/${VERSION}.tar.gz -o ironic-inspector-${VERSION}.tar.gz \
     && tar xf ironic-inspector-${VERSION}.tar.gz \
     && cd ironic-inspector-${VERSION} \
@@ -19,5 +20,4 @@ RUN set -x \
     && pip install PyMySQL \
     && cd - \
     && rm -rf ironic-inspector-${VERSION}* \
-    && apt-get purge -y --auto-remove $buildDeps \
-    && rm -rf /var/lib/apt/lists/*
+    && yum clean all
