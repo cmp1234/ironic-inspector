@@ -5,8 +5,8 @@ MAINTAINER Wang Lilong "wanglilong007@gmail.com"
 ENV VERSION=6.1.0
 
 RUN set -x \  
-	&& yum install -y epel-release  \
-	&& yum install -y python-pip ipmitool\
+	&& yum install -y epel-release \
+	&& yum install -y python-pip ipmitool dnsmasq \
 	&& buildDeps='curl gcc g++ make libffi-dev' \
 	&& yum install -y $buildDeps \
     && curl -fSL https://github.com/openstack/ironic-inspector/archive/${VERSION}.tar.gz -o ironic-inspector-${VERSION}.tar.gz \
