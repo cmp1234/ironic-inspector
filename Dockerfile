@@ -15,9 +15,9 @@ RUN set -x \
     && pip install -r requirements.txt \
     && PBR_VERSION=${VERSION}  pip install . \
     && mkdir /etc/ironic-inspector \
-    && cp example.conf /etc/ironic-inspector/inspector.conf \
     && cp rootwrap.conf /etc/ironic-inspector \
     && pip install PyMySQL \
     && cd - \
     && rm -rf ironic-inspector-${VERSION}* \
     && yum clean all
+COPY inspector.conf /etc/ironic-inspector/inspector.conf
