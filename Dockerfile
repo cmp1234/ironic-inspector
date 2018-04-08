@@ -16,7 +16,7 @@ RUN set -x \
     && PBR_VERSION=${VERSION}  pip install . \
     && mkdir /etc/ironic-inspector \
     && cp rootwrap.conf /etc/ironic-inspector \
-    && pip install PyMySQL \
+    && pip install PyMySQL pymemcache\
     && cd - \
     && rm -rf ironic-inspector-${VERSION}* \
     && yum clean all
