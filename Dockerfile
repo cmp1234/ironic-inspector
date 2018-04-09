@@ -8,7 +8,7 @@ RUN set -x \
 	&& yum install -y epel-release \
 	&& yum install -y python-pip dnsmasq \
 	&& buildDeps='curl gcc g++ make python-devel libffi-dev' \
-	&& yum install -y $buildDeps iptables-services \
+	&& yum install -y $buildDeps iptables-services sudo \
     && curl -fSL https://github.com/openstack/ironic-inspector/archive/${VERSION}.tar.gz -o ironic-inspector-${VERSION}.tar.gz \
     && tar xf ironic-inspector-${VERSION}.tar.gz \
     && cd ironic-inspector-${VERSION} \
