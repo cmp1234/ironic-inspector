@@ -12,6 +12,7 @@ RUN set -x \
     && curl -fSL https://github.com/openstack/ironic-inspector/archive/${VERSION}.tar.gz -o ironic-inspector-${VERSION}.tar.gz \
     && tar xf ironic-inspector-${VERSION}.tar.gz \
     && cd ironic-inspector-${VERSION} \
+    && sed -i 's/>/=/g' requirements.txt \
     && pip install -r requirements.txt \
     && PBR_VERSION=${VERSION}  pip install . \
     && mkdir /etc/ironic-inspector \
