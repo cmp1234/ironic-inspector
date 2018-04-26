@@ -3,6 +3,8 @@ FROM centos:7
 MAINTAINER Wang Lilong "wanglilong007@gmail.com"
 
 ENV VERSION=6.1.0
+ENV MYSQL_VERSION=5.7.20
+ENV MYSQL_DOWNLOAD_URL=https://downloads.mysql.com/archives/get/file/mysql-$MYSQL_VERSION-1.el7.x86_64.rpm-bundle.tar
 
 RUN set -x \  
 	&& yum install -y epel-release \
@@ -21,5 +23,16 @@ RUN set -x \
     && pip install PyMySQL pymemcache\
     && cd - \
     && rm -rf ironic-inspector-${VERSION}* \
+    && echo "install mysql .............................." \
+    && yum install -y numactl net-tools \
+    && curl -fSL $MYSQL_DOWNLOAD_URL -o msyql.tar.gz \
+    && tar xf msyql.tar.gz \
+    && rpm -ivh mysql-community-common-$MYSQL_VERSION-1.el7.x86_64.rpm  \
+    && rpm -ivh mysql-community-libs-$MYSQL_VERSION-1.el7.x86_64.rpm  \
+    && rpm -ivh mysql-community-client-$MYSQL_VERSION-1.el7.x86_64.rpm  \
+    && rpm -ivh mysql-community-server-$MYSQL_VERSION-1.el7.x86_64.rpm \
+    && rm *.rpm msyql.tar.gz -rf \
+    && mysqld --initialize \
+    && chown mysql:mysql -R /var/lib/mysql* \
     && yum clean all
 COPY inspector.conf /etc/ironic-inspector/inspector.conf
