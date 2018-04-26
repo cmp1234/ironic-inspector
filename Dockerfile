@@ -8,7 +8,7 @@ ENV MYSQL_DOWNLOAD_URL=https://downloads.mysql.com/archives/get/file/mysql-$MYSQ
 
 RUN set -x \  
 	&& yum install -y epel-release \
-	&& yum install -y python-pip dnsmasq tftp-server syslinux-tftpboot xinetd dhcp \
+	&& yum install -y python-pip tftp-server syslinux-tftpboot xinetd dhcp ipmitool \
 	&& buildDeps='curl gcc g++ make python-devel libffi-dev' \
 	&& yum install -y $buildDeps iptables-services sudo \
     && curl -fSL https://github.com/openstack/ironic-inspector/archive/${VERSION}.tar.gz -o ironic-inspector-${VERSION}.tar.gz \
@@ -27,10 +27,10 @@ RUN set -x \
     && yum install -y numactl net-tools \
     && curl -fSL $MYSQL_DOWNLOAD_URL -o msyql.tar.gz \
     && tar xf msyql.tar.gz \
-    && rpm -ivh mysql-community-common-$MYSQL_VERSION-1.el7.x86_64.rpm  \
-    && rpm -ivh mysql-community-libs-$MYSQL_VERSION-1.el7.x86_64.rpm  \
-    && rpm -ivh mysql-community-client-$MYSQL_VERSION-1.el7.x86_64.rpm  \
-    && rpm -ivh mysql-community-server-$MYSQL_VERSION-1.el7.x86_64.rpm \
+    && yum install -y mysql-community-common-$MYSQL_VERSION-1.el7.x86_64.rpm  \
+    && yum install -y mysql-community-libs-$MYSQL_VERSION-1.el7.x86_64.rpm  \
+    && yum install -y mysql-community-client-$MYSQL_VERSION-1.el7.x86_64.rpm  \
+    && yum install -y mysql-community-server-$MYSQL_VERSION-1.el7.x86_64.rpm \
     && rm *.rpm msyql.tar.gz -rf \
     && mysqld --initialize \
     && chown mysql:mysql -R /var/lib/mysql* \
