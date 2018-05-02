@@ -20,7 +20,8 @@ RUN set -x \
     && mkdir /etc/ironic-inspector \
     && cp rootwrap.conf /etc/ironic-inspector \
     && cp rootwrap.d /etc/ironic-inspector -rf \
-    && cp ironic-inspector/ironic_inspector/migrations/ /usr/lib/python2.7/site-packages/ironic_inspector/ -rf \
+    && cp ironic_inspector/migrations/ /usr/lib/python2.7/site-packages/ironic_inspector/ -rf \
+    && cp ironic_inspector/alembic.ini /usr/lib/python2.7/site-packages/ironic_inspector/ -rf \
     && pip install PyMySQL pymemcache\
     && cd - \
     && rm -rf ironic-inspector-${VERSION}* \
