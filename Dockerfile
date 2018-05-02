@@ -35,4 +35,3 @@ RUN set -x \
     && mysqld --initialize \
     && chown mysql:mysql -R /var/lib/mysql* \
     && yum clean all
-COPY inspector.conf /etc/ironic-inspector/inspector.conf
